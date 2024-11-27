@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Lab03a {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int wordCount = 0;
+
+        while (true) {
+            System.out.print("Enter a paragraph (or 0 to exit): ");
+            String paragraph = scanner.nextLine();
+
+            if (paragraph.equals("0")) {
+                break;
+            }
+
+            String[] words = paragraph.split("\\s+");
+
+            wordCount += words.length;
+        }
+
+        scanner.close();
+
+        System.out.println("Total number of words: " + wordCount);
+    }
+}
+
+
+//TEST CASE #1 - Empty paragraph
+//++++++++++++
+//Enter your paragraph; enter 0 to end the paragraph:
+//0
+//Total # of words = 0
+//
+//TEST CASE #2 - Para w/o new lines
+//++++++++++++
+//Enter your paragraph; enter 0 to end the paragraph:
+//I love harry styles 0
+//Total # of words = 4
+//
+//TEST CASE #3 - Para w/ new lines
+//++++++++++++
+//Enter your paragraph; enter 0 to end the paragraph:
+//I went back in time and met one direction
+//Total # of words = 9
