@@ -1,0 +1,324 @@
+import java.util.Arrays;
+
+
+public class ArrayRotateLeftN {
+	
+	
+	private static int[] arr1 = {1,2,3,4,5,6,7,8,9};
+	private static int[] arr2 = {2,3,4,5,6,7,8,9,1};
+	private static int[] arr3 = {3,4,5,6,7,8,9,1,2};
+	private static int[] arr4 = {4,5,6,7,8,9,1,2,3};
+	private static int[] arr5 = {5,6,7,8,9,1,2,3,4};
+	private static int[] arr7 = {7,8,9,1,2,3,4,5,6};
+	
+
+	/* Print the whole array as a comma separated list, with square brackets around the list.
+	 * Example: [3, 5, 6, 9, 4, 2, 1]
+	 */
+	public static void printArray (int[] arr) {
+		 System.out.print("[");
+		    for(int i = 0; i<arr.length; i++){
+		        if(i==0){
+		          System.out.print(arr[i]);
+
+		        }else{
+		            System.out.print(", "+arr[i]);
+		        }
+
+		}
+		        System.out.print("]");
+	}
+
+	// Rotate the array left by one element.
+	// Note: Array arr is expected to be modified.
+	public static void rotateLeft1 (int[] arr) {
+		int temp = arr[0];
+		for(int i = 0; i<arr.length-1; i++) {
+			arr[i] = arr[i+1];
+		}
+		arr[arr.length-1]=temp;
+
+	}
+
+	// Rotate the array left by n elements, by calling rotateLeft1 n times
+	// This must work even if n > arr.length.
+	// Note: Array arr is expected to be modified.
+	public static void rotateLeftNMethod1 (int[] arr, int n) {
+		System.out.println("Using Method 1 with n=" + n);
+		for(int i = 0; i<n; i++) {
+			rotateLeft1(arr);
+		}
+	}
+	
+	// Very similar to rotateLeftN, except that we embed the logic of rotateLeft
+	// directly inside the for loop instead of calling rotateLeft1.
+	// So you end up with nested for loops.
+	// This must work even if n > arr.length.
+	// Note: Array arr is expected to be modified.
+	public static void rotateLeftNMethod2 (int[] arr, int n) {
+		System.out.println("Using Method 2 with n=" + n);
+		for(int i = 0; i<n; i++) {
+			int temp = arr[0];
+			for(int j = 0; j<arr.length-1; j++) {
+				arr[j] = arr[j+1];
+			}
+			arr[arr.length-1]=temp;
+		}
+	}
+	
+	// In this method you create a temporary array, copy the first n elements into the
+	// temporary array, copy the remaining elements of arr into the first few slots of
+	// arr, then copy the elements from the temporary array into the remaining portion
+	// of the array.
+	// Note: copying n elements is fine if n < arr.length. Otherwise, you'll need to
+	// deal with it differently.
+	// In this implementation, you end up with 3 consecutive for loops.
+	// Note: Array arr is expected to be modified.
+	public static void rotateLeftNMethod3 (int[] arr, int n) {
+		System.out.println("Using Method 3 with n=" + n);
+		if(n>arr.length) {
+			n = n - arr.length;
+		}
+		int [] newArr  = new int[n];
+		for(int i = 0; i<n; i++) {
+			newArr[i] = arr[i];
+		}
+		int index = n;
+		for(int i = 0; i<arr.length-n; i++) {
+			arr[i] = arr[index];
+			index++;
+		}
+		int index2 = 0;
+		for(int i = arr.length-n; i<arr.length; i++) {
+			arr[i] = newArr[index2]; 
+			index2++;
+		}
+	} 
+	
+	// This is very similar to Method3, except that you put it all in A SINGLE FOR LOOP
+	// with if-statements that do the right job.
+	// Note: Array arr is expected to be modified.
+	public static void rotateLeftNMethod4 (int[] arr, int n) {
+		System.out.println("Using Method 4 with n=" + n);
+		if(n>arr.length) {
+			n = n - arr.length;
+		}
+		int [] newArr  = new int[n];
+		for(int i = 0; i<arr.length; i++) {
+			if(i<n) {
+				newArr[i] = arr[i];
+			}
+			 if(i >= n) {
+				arr[i-n] = arr[i];
+			}
+			 if(i>=arr.length-n) {
+				arr[i] = newArr[i-arr.length+n]; 
+				
+			}
+		}
+	}
+	
+	// Reset arr by assigning all elements of arrX to it.
+	// Precondition: both arrays are expected to be of the same length.
+	public static void resetArr(int[] arr, int[] arrX) {
+		for (int i=0; i<arr.length; i++)
+			arr[i]=arrX[i];
+	}
+	
+	public static void main(String[] args) {
+
+		int[] arr = {1,2,3,4,5,6,7,8,9};
+		System.out.println("This is the array we're starting with:");
+		printArray(arr);
+		System.out.println();
+		
+		System.out.println("rotateLeftN Test #1");
+		rotateLeftNMethod1(arr, 1); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod2(arr, 1); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod3(arr, 1); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod4(arr, 1); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #2");
+		rotateLeftNMethod1(arr,2); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod2(arr, 2); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod3(arr, 2); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod4(arr, 2); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+		
+		System.out.println("rotateLeftN Test #3");
+		rotateLeftNMethod1(arr,3); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod2(arr, 3); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod3(arr, 3); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod4(arr, 3); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #4");
+		rotateLeftNMethod1(arr,4); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod2(arr, 4); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod3(arr, 4); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod4(arr, 4); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #5: ");
+		rotateLeftNMethod1(arr,5); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod2(arr, 5); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod3(arr, 5); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod4(arr, 5); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #6: ");
+		rotateLeftNMethod1(arr,6); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod2(arr, 6); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod3(arr, 6); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr7); rotateLeftNMethod4(arr, 6); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #7: ");
+		rotateLeftNMethod1(arr,7); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod2(arr, 7); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod3(arr, 7); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod4(arr, 7); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #8: ");
+		rotateLeftNMethod1(arr,8); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod2(arr, 8); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod3(arr, 8); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod4(arr, 8); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #9: ");
+		rotateLeftNMethod1(arr,9); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod2(arr, 9); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod3(arr, 9); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod4(arr, 9); printArray(arr);
+		if (Arrays.equals(arr, arr1)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #10: ");
+		rotateLeftNMethod1(arr,10); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod2(arr, 10); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod3(arr, 10); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr1); rotateLeftNMethod4(arr, 10); printArray(arr);
+		if (Arrays.equals(arr, arr2)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #11: ");
+		rotateLeftNMethod1(arr,11); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod2(arr, 11); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod3(arr, 11); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr2); rotateLeftNMethod4(arr, 11); printArray(arr);
+		if (Arrays.equals(arr, arr4)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+		System.out.println("rotateLeftN Test #12: ");
+		rotateLeftNMethod1(arr,12); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod2(arr, 12); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod3(arr, 12); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		resetArr(arr, arr4); rotateLeftNMethod4(arr, 12); printArray(arr);
+		if (Arrays.equals(arr, arr7)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println();
+
+	}
+
+}
+
+		else System.out.println("FAILED!");
+		System.out.println();
+
+	}
+
+}
