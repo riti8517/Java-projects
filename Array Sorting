@@ -1,0 +1,208 @@
+import java.util.Arrays;
+
+
+public class ArraySorting {
+
+	/** bubbleSort
+	 * @param arr - pass in an array of int values using the bubble sort algorithm.
+	 * @return - a new array of int values that is a sorted version of the array
+	 * that is passed in as a parameter.
+	 */
+	public static int[] bubbleSort(int[] arr) {
+		int[] arrSorted = new int[arr.length];
+		System.arraycopy(arr, 0, arrSorted, 0, arr.length);
+		int numIterations = 0;
+		int temp = 0;
+		for(int i =0; i<arrSorted.length; i++) {
+			for(int j = 0; j<arrSorted.length; j++) {
+				numIterations++;
+				if(arrSorted[i]<arrSorted[j]) {
+					temp = arrSorted[i];
+					arrSorted[i]=arrSorted[j];
+					arrSorted[j]=temp;
+				}
+			}
+		}
+
+		System.out.println("Number of iterations = " + numIterations);
+		return arrSorted;
+	}
+
+	/** selectionSort
+	 * @param arr - pass in an array of int values using the selection sort algorithm.
+	 * @return - a new array of int values that is a sorted version of the array
+	 * that is passed in as a parameter.
+	 */
+	public static int[] selectionSort(int[] arr) {
+		int[] arrSorted = new int[arr.length];
+		System.arraycopy(arr, 0, arrSorted, 0, arr.length);
+		int numIterations = 0;
+		int temp = 0;
+		for(int i = 0; i<arrSorted.length-1; i++) {
+			int min = i;
+			for(int j = i+1; j<arrSorted.length; j++) {
+				if(arrSorted[j]<arrSorted[min]) {
+					min = j;
+				}
+				
+			}
+			temp = arrSorted[i];
+			arrSorted[i]=arrSorted[min];
+			arrSorted[min] = temp;	
+	}
+		System.out.println("Number of iterations = " + numIterations);
+		return arrSorted;
+	}
+	
+	/** insertionSort
+	 * @param arr - pass in an array of int values using the insertion sort algorithm.
+	 * @return - a new array of int values that is a sorted version of the array
+	 * that is passed in as a parameter.
+	 */
+	public static int[] insertionSort(int[] arr) {
+		int[] arrSorted = new int[arr.length];
+		System.arraycopy(arr, 0, arrSorted, 0, arr.length);
+		int numIterations=0;
+		  int key = 0;
+		  int j = 0;
+		    for (int i = 1; i < arrSorted.length; i++) {
+		        key = arrSorted[i];
+		        j = i - 1;
+		 
+		 
+		        while (j >= 0 && arrSorted[j] > key) {
+		        	numIterations++;
+		            arrSorted[j + 1] = arrSorted[j];
+		            j = j - 1;
+		        }
+		        arrSorted[j + 1] = key;
+		    }
+
+
+		System.out.println("Number of iterations = " + numIterations);
+		return arrSorted;
+	}	
+
+
+	public static void main(String[] args) {
+		
+		int[] arr1 = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+		int[] arr2 = {5, 9, 3, 8, 2, 0, 7, 4, 6, 1};
+		int[] arr3 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		int[] expectedSortedArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		int[] arrSorted;
+		
+		System.out.println("=======");
+		System.out.println("BUBBLE SORT");
+		System.out.println("=======");
+		System.out.println("TEST CASE #1");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr1));
+		arrSorted = bubbleSort(arr1);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #2");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr2));
+		arrSorted = bubbleSort(arr2);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #3");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr3));
+		arrSorted = bubbleSort(arr3);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("");
+
+		
+		System.out.println("=======");
+		System.out.println("SELECTION SORT");
+		System.out.println("=======");
+		System.out.println("TEST CASE #1");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr1));
+		arrSorted = selectionSort(arr1);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #2");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr2));
+		arrSorted = selectionSort(arr2);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #3");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr3));
+		arrSorted = selectionSort(arr3);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("");
+
+		
+		System.out.println("=======");
+		System.out.println("INSERTION SORT");
+		System.out.println("=======");
+		System.out.println("TEST CASE #1");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr1));
+		arrSorted = insertionSort(arr1);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #2");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr2));
+		arrSorted = insertionSort(arr2);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("-----");
+		System.out.println("TEST CASE #3");
+		System.out.print("Original array: ");
+		System.out.println(Arrays.toString(arr3));
+		arrSorted = insertionSort(arr3);
+		System.out.print("Sorted array:   ");
+		System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("");
+
+
+	}
+
+}
+        System.out.println(Arrays.toString(arrSorted));
+		if (Arrays.equals(arrSorted, expectedSortedArr)) System.out.println("PASSED!");
+		else System.out.println("FAILED!");
+		System.out.println("");
+
+
+	}
+
+}
+;
+
+
+	}
+
+}
