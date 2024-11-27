@@ -1,0 +1,176 @@
+import java.util.Scanner;
+public class Lab0PrintReceipt {
+
+    // Declare constants to hold the Unit price (in dollars) of each type of item,
+    // and set their values to be the given unit prices, per the assignment.
+    static final double UP_TV  = 400.0;	// Unit Price for TV
+    static final double UP_VCR = 220.0;	// Unit Price for VCR
+    static final double UP_RC  = 35.20;	// Unit Price for Remote Controller
+    static final double UP_CDP = 300.0;	// Unit Price for CD Player
+    static final double UP_TR  = 150.0;	// Unit Price for Tape Recorder
+
+    // Declare constants to hold the description of each type of item,
+    // and set their values to the strings that represent their names.
+    static final String TV  = "TV";
+    static final String VCR = "VCR";
+    static final String RC  = "Remote Controller";
+    static final String CDP = "CD Player";
+    static final String TR  = "Tape Recorder";
+
+    // Declare constants to hold the decimal and percent values of the tax rate,
+    // and set them to the tax rate specified in the assignment = 8.25%.
+    static final double TAX_RATE = 0.0825F;					// tax rate in decimal
+    static final double TAX_RATE_PERCENT = TAX_RATE * 100;	// tax rate in percent
+
+    // Declare a variable of the Scanner class and invoke its constructor to create
+    // an instance of the class; use it later to read input from the console.
+    static Scanner scan1 = new Scanner(System.in);
+
+    // the main program
+    public static void main(String[] args) {
+
+        // Declare int variables to track the quantity of various types of items
+        // bought, and assign them the values that are read from the console.
+        String enter = "Enter # of ";
+        String sBought = "s bought: ";
+        System.out.printf(enter + TV  + sBought);	// Prompt for TVs
+        int qtyTV = scan1.nextInt();				// Read # of TVs bought
+        System.out.printf(enter + VCR + sBought);	// Prompt for VCRs
+        int qtyVCR = scan1.nextInt();				// Read # of VCRs bought
+        System.out.printf(enter + RC  + sBought);	// Prompt for Remote Controllers
+        int qtyRC = scan1.nextInt();				// Read # of Remote Controllers bought
+        System.out.printf(enter + CDP + sBought);	// Prompt for # of CD Players
+        int qtyCDP = scan1.nextInt();				// Read # of CD Players bought
+        System.out.printf(enter + TR  + sBought);	// Prompt for Tape Recorders
+        int qtyTR = scan1.nextInt();				// Read # of Tape Recorders bought
+
+        System.out.printf("%n"); // Create some white space between the list of items and the totals.
+
+        // Declare variables to hold the total price of each type of item, and set each of their
+        // values to be the product of the quantity and unit price of that type of item.
+
+        double tpTV		= qtyTV*(UP_TV);	// Total price for TVs
+        double tpVCR	= qtyVCR*(UP_VCR);	// Total price for VCRs
+        double tpRC		= qtyRC*(UP_RC);	// Total price for Remote Controllers
+        double tpCDP	= qtyCDP*(UP_CDP);	// Total price for CD Players
+
+
+        // Print the header, showing the quantity of items bought, description, unit price, and total price
+        System.out.printf("#%13s", "Description");
+        System.out.printf("%30s", "Unit price");
+        System.out.printf("%18s%n", "Total price");
+
+        // Print a line below the header so that it contains "=" and " " (empty space) below each
+        // character in the header line.
+        System.out.printf("==%12s", "===========");
+        System.out.printf("%30s", "==========");
+        System.out.printf("%18s%n", "===========");
+
+
+
+
+
+        // Print the quantity, description, unit price, and total price for each type of item purchased
+
+        System.out.print(qtyTV); // TVs
+        System.out.printf("%5s", TV);
+        System.out.printf("%38s", UP_TV);
+        System.out.printf("%13s",tpTV+"\n");
+        System.out.print(qtyVCR);
+        System.out.printf("%6s", VCR);
+        System.out.printf("%37s", UP_VCR);// VCRs
+        System.out.printf("%13s",tpVCR+"\n");
+        System.out.print(qtyRC);
+        System.out.printf("%20s", RC);
+        System.out.printf("%23s",UP_RC);
+        System.out.printf("%12s",tpRC+"\n");// Remote Controllers
+        System.out.print(qtyCDP);
+        System.out.printf("%12s", CDP);
+        System.out.printf("%31s",UP_CDP);
+        System.out.printf("%13s",tpCDP+"\n");// Remote Controllers
+        System.out.print(qtyTR); // Tape Recorders
+        System.out.printf("%16s", TR);
+        System.out.printf("%27s",UP_TR);
+        System.out.printf("%12s",tpRC+"\n");// Remote Controllers
+
+
+
+
+        //System.out.printf(); // Create some white space between the list of items and the totals.
+
+        // Declare a variable to hold the sub total amount, and set its value to be
+        // the sum of the total prices of all the items bought.
+
+        double subTotal = tpTV+tpVCR+tpRC+tpCDP;
+
+         //Print the sub total.
+        System.out.printf("%30s", "SubTotal");
+        System.out.printf("%15s%n", subTotal);
+
+
+        // Declare a variable to hold the tax incurred, and set its value to be
+        // the product of the sub total and the tax rate (in decimal).
+
+        double tax = subTotal*TAX_RATE;
+
+
+        // Print the tax on the sub total (also inform the customer about the tax rate percent).
+
+        System.out.printf("%30s", "TAX @ 8.25%");
+        System.out.printf("%27s%n", tax);
+
+        // ALTERNATE PRINT STATEMENT WITHOUT SHOWING THE TAX RATE PERCENT -- commented out
+       System.out.printf("%30s", "TAX");
+       System.out.printf("%27s%n", tax);
+        // Declare a variable to hold the total amount after tax,
+        // and set its value to be the sum of the sub total and the tax.
+
+        double total = subTotal+tax;
+
+
+        // Print the total amount
+       System.out.printf("%30s", "Total");
+       System.out.printf("%28s%n", total);
+    }
+
+}
+
+// 1-digit quantities
+//Enter # of TVs bought: 
+//1
+//Enter # of VCRs bought: 1
+//Enter # of Remote Controllers bought: 1
+//Enter # of CD Players bought: 1
+//Enter # of Tape Recorders bought: 1
+//#  Description                    Unit price       Total price
+//== ===========                    ==========       ===========
+//1   TV                                 400.0       400.0
+//1   VCR                                220.0       220.0
+//1   Remote Controller                   35.2       35.2
+//1   CD Player                          300.0       300.0
+//1   Tape Recorder                      150.0       35.2
+//                      SubTotal          955.2
+//                   TAX @ 8.25%          78.80400313138962
+//                           TAX          78.80400313138962
+//                         Total          1034.0040031313897
+
+
+//2-digit quantities
+//Enter # of TVs bought: 
+//40
+//Enter # of VCRs bought: 20
+//Enter # of Remote Controllers bought: 15
+//Enter # of CD Players bought: 30
+//Enter # of Tape Recorders bought: 25
+//
+//#  Description                    Unit price       Total price
+//== ===========                    ==========       ===========
+//40   TV                                 400.0     16000.0
+//20   VCR                                220.0      4400.0
+//15   Remote Controller                   35.2      528.0
+//30   CD Player                          300.0      9000.0
+//25   Tape Recorder                      150.0      528.0
+//                      SubTotal        29928.0
+//                   TAX @ 8.25%         2469.0600981116295
+//                           TAX         2469.0600981116295
+//                         Total           32397.06009811163
